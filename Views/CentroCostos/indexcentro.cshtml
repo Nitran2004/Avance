@@ -1,0 +1,131 @@
+﻿@model IEnumerable<Avance.Models.CentroCostos>
+
+
+
+@{
+    ViewData["Title"] = "Centro de costos";
+}
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        body {
+            position: relative;
+            left: 20%;
+        }
+
+
+
+        .side-var {
+            width: 20%;
+            height: 100%;
+            background-color: rgb(22, 73, 107);
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            overflow-x: hidden;
+            padding-top: 20px;
+            color: white;
+        }
+
+
+
+            .side-var h3 {
+                text-align: center;
+            }
+
+
+
+            .side-var a {
+                position: relative;
+                left: 10%;
+                color: white;
+                text-decoration: none;
+            }
+    </style>
+</head>
+<body>
+    <div class="side-var">
+        <h3>Menu</h3>
+        <a href="@Url.Action("CentroCostos", "CentroCostos")">Centro de costos</a><br />
+        <a href="@Url.Action("PagBuscarTrabajadores", "Trabajador")"> Trabajador </a><br />
+        <a href="@Url.Action("Index", "Home")">Salir</a><br />
+    </div>
+
+
+
+    <div class="container">
+        <h1>Centro de costos</h1>
+
+
+
+        <p>Buscar por nombre:</p>
+        <form action="@Url.Action("Search", "CentroCostos")" method="post">
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <input type="text" name="descripcion" placeholder="Nombre de centro de costos" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
+
+
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+        }
+
+
+
+        <a href="@Url.Action("AddCentroDeCostos", "CentroCostos")" class="btn btn-primary float-right">Agregar</a>
+
+
+
+
+
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Codigo</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Mensaje</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- ... (código existente) ... -->
+                @foreach (var centroCosto in Model)
+                {
+                    <tr>
+                        <th scope="row">@centroCosto.Codigo</th>
+                        <td>@centroCosto.NombreCentroCostos</td>
+                        <td>@centroCosto.Mensaje</td>
+                        <td>
+                            @*<form action="@Url.Action("ElimAtributo", "CentroCostos")" method="post">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@centroCosto.Codigo" />
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>*@
+                            <a class="btn btn-success" href="@Url.Action("EditCentroCostos", "CentroCostos", new { id = centroCosto.Codigo })">Editar</a>
+                            <a class="btn btn-success" href="@Url.Action("EliminarAtributo", "CentroCostos", new { id = centroCosto.Codigo })">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+
+                <!-- ... (código existente) ... -->
+
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

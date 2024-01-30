@@ -1,0 +1,34 @@
+﻿@model dynamic
+
+@{
+    ViewData["Title"] = "Delete Cost Center";
+}
+
+<h3>Delete Cost Center</h3>
+<div class="form">
+    <form method="post" asp-action="Delete" asp-route-id="@Model.Codigo">
+        <input type="hidden" name="_RequestVerificationToken" value="@ViewData["_RequestVerificationToken"]" />
+
+        <p>Are you sure you want to delete the cost center with code: @Model.Codigo and name: @Model.NombreCentroCostos?</p>
+        <button type="submit" class="btn-danger">Delete</button>
+        <a asp-action="IndexCentro" asp-controller="CentroCostos" class="btn-primary">Cancel</a>
+    </form>
+</div>
+
+
+<style>
+    .boton-rojo {
+        background-color: darkred;
+        color: white;
+    }
+
+    .boton-azul {
+        background-color: darkblue;
+        color: white;
+        margin-left: 10px;
+    }
+
+    .formulario {
+        margin-top: 10px;
+    }
+</style>
