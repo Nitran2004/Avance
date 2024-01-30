@@ -634,7 +634,8 @@ namespace Avance.Controllers
                                 var dataArray = JArray.Parse(data);
                                 foreach (var item in dataArray)
                                 {
-                                    if (item["Id_Trabajador"].Value<int>() == int.Parse(codigo))
+                                    if (item["Apellido_Paterno"].Value<string>() == codigo)
+
                                     {
                                         return View("IndexSearchTrabajador", new
                                         {
